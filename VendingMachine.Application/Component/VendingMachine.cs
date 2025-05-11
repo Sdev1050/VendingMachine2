@@ -59,6 +59,10 @@ namespace VendingMachine.Application.Component
                 /*Access Amount and equal to Price*/
                 DisplayMessages = Messages.Thank_you;
                 DispenseTheProduct(product);
+                /*show the excess Amount*/
+                if (CurrentAmount > product.ProductPrice)
+                    CurrentAmount = CurrentAmount - product.ProductPrice;
+
             }else {
                 /*LessAmount and try to select the Product*/
                 DisplayMessages = string.Format(Messages.Display_price,product.ProductPrice);

@@ -73,6 +73,66 @@ namespace VendingMachine.UnitTest
             Assert.AreEqual(vendingMachine.DisplayMessages, string.Format(Messages.Display_price,selectProduct.ProductPrice));
         }
 
+        [Test]
+        public void Validate_Select_Candy_with_Inserted_Coin_Message()
+        {
+            vendingMachine.ResetAmount();
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Nickels.ToString(), CoinValue.CoinList[CoinType.Nickels.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Nickels.ToString(), CoinValue.CoinList[CoinType.Nickels.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Nickels.ToString(), CoinValue.CoinList[CoinType.Nickels.ToString()]));
+            var selectProduct = vendingMachine.products.Find(it => it.ProductName == ProductType.Candy.ToString());
+            vendingMachine.SelectProduct(selectProduct);
+            Assert.AreEqual(vendingMachine.DisplayMessages, Messages.Thank_you);
+            
+            vendingMachine.ResetAmount();
+            Assert.AreEqual(vendingMachine.DisplayMessages, Messages.Inserted_coin);
+            Assert.AreEqual(vendingMachine.CurrentAmount, 0.0);
+
+        }
+
+        [Test]
+        public void Validate_excess_amount()
+        {
+            vendingMachine.ResetAmount();
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            var selectProduct = vendingMachine.products.Find(it => it.ProductName == ProductType.Chips.ToString());
+            vendingMachine.SelectProduct(selectProduct);
+            Assert.AreEqual(vendingMachine.DisplayMessages, Messages.Thank_you);
+            Assert.AreEqual(vendingMachine.CurrentAmount, CoinValue.CoinList[CoinType.Quarters.ToString()]);
+        }
+
+        [Test]
+        public void Validate_Select_Cola()
+        {
+            vendingMachine.ResetAmount();
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+
+            var selectProduct = vendingMachine.products.Find(it => it.ProductName == ProductType.Cola.ToString());
+            vendingMachine.SelectProduct(selectProduct);
+            Assert.AreEqual(vendingMachine.DisplayMessages, Messages.Thank_you);
+        }
+
+        [Test]
+        public void Validate_Select_Cola_with_less_Amount()
+        {
+            vendingMachine.ResetAmount();
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+            vendingMachine.AcceptCoins(new Coin(CoinType.Quarters.ToString(), CoinValue.CoinList[CoinType.Quarters.ToString()]));
+
+            var selectProduct = vendingMachine.products.Find(it => it.ProductName == ProductType.Cola.ToString());
+            vendingMachine.SelectProduct(selectProduct);
+            Assert.AreEqual(vendingMachine.DisplayMessages, string.Format(Messages.Display_price, selectProduct.ProductPrice));
+
+        }
+
 
     }
 }
