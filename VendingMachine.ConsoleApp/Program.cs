@@ -19,4 +19,4 @@ var vendingMachine = new VendingMachine(acceptCoinService, SelectProductService)
             return products;
  */
 
-vendingMachine.SelectProduct(new Product(101, ProductType.Cola.ToString(), ProductPrice.ProductList[ProductType.Cola.ToString()], 2));
+vendingMachine.SelectProduct(new Product(101, ProductType.Cola.ToString(), ProductPrice.ProductList[ProductType.Cola.ToString()]));

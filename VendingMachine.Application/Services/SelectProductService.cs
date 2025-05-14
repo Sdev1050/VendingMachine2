@@ -25,9 +25,9 @@ namespace VM.Application.Services
         public List<Product> GetAllListOfProduct()
         {
             List<Product> products = new List<Product>();
-            products.Add(new Product(101, ProductType.Cola.ToString(), ProductPrice.ProductList[ProductType.Cola.ToString()],100));
-            products.Add(new Product(102, ProductType.Chips.ToString(), ProductPrice.ProductList[ProductType.Chips.ToString()],100));
-            products.Add(new Product(103, ProductType.Candy.ToString(), ProductPrice.ProductList[ProductType.Candy.ToString()],100));
+            products.Add(new Product(101, ProductType.Cola.ToString(), ProductPrice.ProductList[ProductType.Cola.ToString()]));
+            products.Add(new Product(102, ProductType.Chips.ToString(), ProductPrice.ProductList[ProductType.Chips.ToString()]));
+            products.Add(new Product(103, ProductType.Candy.ToString(), ProductPrice.ProductList[ProductType.Candy.ToString()]));
             return products;
 
         }

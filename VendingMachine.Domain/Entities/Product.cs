@@ -14,14 +14,12 @@ namespace VM.Domain.Entities
 
         public double ProductPrice { get; set; }
 
-        public int ProductQuantity { get; set; }
 
-        public Product(int _productId,string _productName,double _productPrice,int _productQuantity)
+        public Product(int _productId,string _productName,double _productPrice)
         {
             ProductId = _productId;
             ProductName = _productName;
             ProductPrice = _productPrice;
-            ProductQuantity = _productQuantity;
         }
     }
 }
