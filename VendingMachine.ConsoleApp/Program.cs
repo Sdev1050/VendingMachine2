@@ -1,16 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System.ComponentModel.DataAnnotations;
-using VendingMachine.Application.Component;
-using VendingMachine.Application.Servies;
-using VendingMachine.Domain.Constants;
-using VendingMachine.Domain.Entities;
-using VendingMachine.Domain.Enums;
+using VM.Application.Services;
+using VM.Domain.Constants;
+using VM.Domain.Entities;
+using VM.Domain.Enums;
+using VM.Application.Component;
 
 Console.WriteLine("Hello, World!");
 
 var acceptCoinService = new AcceptCoinService();
 var SelectProductService = new SelectProductService();
-var vendingMachine = new VVendingMachine(acceptCoinService, SelectProductService);
+var vendingMachine = new VendingMachine(acceptCoinService, SelectProductService);
 
 /*
  *  List<Product> products = new List<Product>();

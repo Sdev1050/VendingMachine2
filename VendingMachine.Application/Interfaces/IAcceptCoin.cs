@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VendingMachine.Domain.Entities;
+using VM.Domain.Entities;
 
-namespace VendingMachine.Application.Interfaces
+namespace VM.Application.Interfaces
 {
     public interface IAcceptCoin
     {

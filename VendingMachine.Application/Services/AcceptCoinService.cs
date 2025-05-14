@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VendingMachine.Application.Interfaces;
-using VendingMachine.Domain.Entities;
-using VendingMachine.Domain.Enums;
+using VM.Application.Interfaces;
+using VM.Domain.Entities;
+using VM.Domain.Enums;
 
-namespace VendingMachine.Application.Servies
+namespace VM.Application.Services
 {
     public class AcceptCoinService : IAcceptCoin
     {

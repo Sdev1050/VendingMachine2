@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VendingMachine.Domain.Constants
+namespace VM.Domain.Constants
 {
     public class Messages
     {

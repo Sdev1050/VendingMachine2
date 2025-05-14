@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VendingMachine.Domain.Enums;
+using VM.Domain.Enums;
 
-namespace VendingMachine.Domain.Constants
+namespace VM.Domain.Constants
 {
     public class ProductPrice
     {

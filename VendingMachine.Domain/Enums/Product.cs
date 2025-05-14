@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VendingMachine.Domain.Enums
+namespace VM.Domain.Enums
 {
     public enum ProductType
     {

@@ -1,20 +1,20 @@
-using VendingMachine.Application.Component;
-using VendingMachine.Application.Servies;
-using VendingMachine.Domain.Constants;
-using VendingMachine.Domain.Entities;
-using VendingMachine.Domain.Enums;
+using VM.Application.Component;
+using VM.Application.Services;
+using VM.Domain.Constants;
+using VM.Domain.Entities;
+using VM.Domain.Enums;
 
-namespace VendingMachine.UnitTest
+namespace VM.UnitTest
 {
-    public class VVendingMachineTest
+    public class VendingMachineTest
     {
-        VVendingMachine vendingMachine;     
+        VendingMachine vendingMachine;     
         [SetUp]
         public void Setup()
         {
             var acceptCoinService = new AcceptCoinService();
             var SelectProductService = new SelectProductService();
-            vendingMachine = new VVendingMachine(acceptCoinService, SelectProductService);
+            vendingMachine = new VendingMachine(acceptCoinService, SelectProductService);
         }
 
         [Test]

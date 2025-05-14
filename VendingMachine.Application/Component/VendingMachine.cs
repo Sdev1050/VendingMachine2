@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VendingMachine.Application.Interfaces;
-using VendingMachine.Application.Servies;
-using VendingMachine.Domain.Constants;
-using VendingMachine.Domain.Entities;
+using VM.Application.Interfaces;
+using VM.Application.Services;
+using VM.Domain.Constants;
+using VM.Domain.Entities;
 
-namespace VendingMachine.Application.Component
+namespace VM.Application.Component
 {
-    public class VVendingMachine
+    public class VendingMachine
     {
         public  double  CurrentAmount { get; set; }
         public string DisplayMessages { get; set; }
@@ -19,11 +19,11 @@ namespace VendingMachine.Application.Component
         public IAcceptCoin acceptCoin;
         public ISelectProduct selectProduct;
 
-        public VVendingMachine()
+        public VendingMachine()
         {
             
         }
-        public VVendingMachine(IAcceptCoin _acceptCoin,ISelectProduct  _selectProduct)
+        public VendingMachine(IAcceptCoin _acceptCoin,ISelectProduct  _selectProduct)
         {
             acceptCoin = _acceptCoin;
             selectProduct = _selectProduct;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VendingMachine.Domain.Entities
+namespace VM.Domain.Entities
 {
     public class Product
     {
