@@ -12,33 +12,36 @@ namespace VM.Application.Component
 {
     public class VendingMachine
     {
-        public  double  CurrentAmount { get; set; }
-        public string DisplayMessages { get; set; }
-        public List<Product> products { get; set; }
-
-        public IAcceptCoin acceptCoin;
-        public ISelectProduct selectProduct;
-
+        /*Current Amount and display Messages used for Validation in test Cases*/
+        private double  CurrentAmount { get; set; }
+        private List<Product> products { get; set; }
+        private readonly IAcceptCoin acceptCoin;
+        private readonly ISelectProduct selectProduct;
+        private readonly IDisplayMessage displayMessage;
+        public double GetCurrentAmount() => CurrentAmount;
         public VendingMachine()
         {
             
         }
-        public VendingMachine(IAcceptCoin _acceptCoin,ISelectProduct  _selectProduct)
+        public VendingMachine(IAcceptCoin _acceptCoin,ISelectProduct  _selectProduct,IDisplayMessage _displayMessage)
         {
             acceptCoin = _acceptCoin;
             selectProduct = _selectProduct;
+            displayMessage = _displayMessage;
             products = selectProduct.GetAllListOfProduct();
         }
 
-        public void ResetAmount ()
+        public void Reset()
         {
             CurrentAmount = 0.0;
-            DisplayMessages = Messages.Inserted_coin;
+            displayMessage.SetMessage(Messages.Inserted_coin);
         }
 
         public void AcceptCoins(Coin coin)
         {
-            if(acceptCoin.ValidateCoin(coin))
+            displayMessage.SetMessage(Messages.Inserted_coin);
+
+            if (acceptCoin.ValidateCoin(coin))
             {
                 CurrentAmount += coin.CoinValue;
 
@@ -48,7 +51,7 @@ namespace VM.Application.Component
             }
         }
 
-        public void SelectProduct(Product product)
+        public bool SelectProduct(Product product)
         {
             bool result = false;
 
@@ -57,21 +60,27 @@ namespace VM.Application.Component
             if(result)
             {
                 /*Access Amount and equal to Price*/
-                DisplayMessages = Messages.Thank_you;
+                displayMessage.SetMessage(Messages.Thank_you);
                 DispenseTheProduct(product);
-                /*show the excess Amount*/
-                if (CurrentAmount > product.ProductPrice)
-                    CurrentAmount = CurrentAmount - product.ProductPrice;
+                /*Setting Up the Current Amount*/
+                CurrentAmount = CurrentAmount - product.ProductPrice;
 
             }else {
                 /*LessAmount and try to select the Product*/
-                DisplayMessages = string.Format(Messages.Display_price,product.ProductPrice);
+
+                displayMessage.SetMessage(string.Format(Messages.Display_price,product.ProductPrice));
             }
+
+            return result;
         }
 
         private void ReturnCoin()
         {
-            Console.WriteLine("Return coin");
+           IReadOnlyList<Coin> listOfCoin = acceptCoin.GetAllReturnCoin();
+            foreach (Coin coin in listOfCoin)
+            {
+                Console.WriteLine("Return Coin {0}: {1}", coin.CoinType, coin.CoinValue);
+            }
         }
 
         private void DispenseTheProduct(Product product)
@@ -79,6 +88,14 @@ namespace VM.Application.Component
             Console.WriteLine("Return coin : {0}",product.ProductName);
         }
 
-
+        public string CheckDisplay()
+        {
+            string message = displayMessage.GetMessage();
+            if (message == Messages.Thank_you || message.StartsWith("PRICE"))
+            {
+                displayMessage.ResetMessage();
+            }
+            return message;
+        }
       }
 }

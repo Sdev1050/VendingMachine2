@@ -11,6 +11,21 @@ namespace VM.Application.Services
 {
     public class AcceptCoinService : IAcceptCoin
     {
+        private readonly IReturnCoin returnCoin;
+
+        public AcceptCoinService(IReturnCoin _returnCoin) {
+
+            returnCoin = _returnCoin;
+        }
+
+        public void ClearReturnCoin()
+        {
+            returnCoin.ClearCoin();
+        }
+        IReadOnlyList<Coin> IAcceptCoin.GetAllReturnCoin()
+        {
+            return returnCoin.GetReturnedCoins();
+        }
         public double UpdateCurrentAmount(Coin coin)
         {
             if (ValidateCoin(coin))
@@ -34,7 +49,14 @@ namespace VM.Application.Services
             {
                 result = true;
             }
+
+            /*Add return Coin in the Return Coin Service */
+            if (!result)
+                returnCoin.AddReturnCoin(coin);
+
             return result;
         }
+
+      
     }
 }

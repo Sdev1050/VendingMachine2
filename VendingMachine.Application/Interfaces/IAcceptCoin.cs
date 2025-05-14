@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,10 @@ namespace VM.Application.Interfaces
     {
         bool ValidateCoin(Coin coin);
         double UpdateCurrentAmount(Coin coin);
+
+        IReadOnlyList<Coin> GetAllReturnCoin();
+
+        void ClearReturnCoin();
 
     }
 }
