@@ -33,6 +33,12 @@ namespace VM.UnitTest
             ).SetName("Buy_Chips_Without_Enough_Money");
 
             yield return new TestCaseData(
+                new CoinType[] { CoinType.Quarters ,CoinType.Quarters,CoinType.Quarters},
+                new Product(101, "Chips", 0.50),
+                true
+            ).SetName("Buy_Chips_More_Money");
+
+            yield return new TestCaseData(
                 new CoinType[] { CoinType.Quarters, CoinType.Quarters, CoinType.Quarters },
                 new Product(102, "Candy", 0.65),
                 true
@@ -43,6 +49,18 @@ namespace VM.UnitTest
                 new Product(103, "Cola", 1.00),
                 false
             ).SetName("Buy_Cola_With_Insufficient_Funds");
+
+            yield return new TestCaseData(
+               new CoinType[] { CoinType.Quarters, CoinType.Quarters, CoinType.Quarters ,CoinType.Quarters},
+               new Product(103, "Cola", 1.00),
+               true
+           ).SetName("Buy_Cola_With_With_Enough_Money");
+
+            yield return new TestCaseData(
+             new CoinType[] { CoinType.Quarters, CoinType.Quarters, CoinType.Quarters, CoinType.Quarters ,CoinType.Dimes,CoinType.Dimes},
+             new Product(103, "Cola", 1.00),
+             true
+         ).SetName("Buy_Cola_With_With_More_Money");
         }
 
         private static IEnumerable<TestCaseData> GetSumofValidCoin()
@@ -89,7 +107,7 @@ namespace VM.UnitTest
 
        
         [Test,TestCaseSource(nameof(GetSumofValidCoin))]
-        public void Validate_sum_ValidCoins(CoinType[] insertedCoins, double expectedSum)
+        public void Validate_Sum_Of_ValidCoins(CoinType[] insertedCoins, double expectedSum)
         {
             var machine = SetupMachineWithCoins(insertedCoins);
             var currentAmount = machine.GetCurrentAmount();
@@ -107,7 +125,7 @@ namespace VM.UnitTest
         }
 
         [Test,TestCaseSource(nameof(ProductPurchaseData))]
-        public void Validate_Select_Chips(CoinType[] insertedCoins, Product product, bool shouldSucceed)
+        public void Validate_Selected_Products(CoinType[] insertedCoins, Product product, bool shouldSucceed)
         {
             var machine = SetupMachineWithCoins(insertedCoins);
             machine.SelectProduct(product);
